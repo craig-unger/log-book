@@ -1,3 +1,55 @@
+/* .Div-menu{
+border:1px solid green;
+padding:5px;
+margin:5px;
+} */
+
+.Div-border {
+  padding: 30px;
+  border: black;
+  border-style: inset;
+}
+
+button {
+  font-size: 18px;
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  background: #263e7a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px 5px 10px;
+  cursor: pointer;
+}
+button:hover {
+  background: orange;
+}
+
+input {
+  text-align: center;
+  font-size: 15px;
+  margin: 5px;
+}
+
+a {
+  color: orange;
+}
+
+.Menu-div{
+  /* background:rgb(255, 130, 0); */
+  background: #263e7a;
+  color: wheat;  
+  /* padding: 10px;
+  margin-bottom: 0px; */
+  padding: 41px;
+}
+
+.User-info{
+  text-align: right;
+  margin-bottom:-70px;
+}
+
 .App {
   text-align: center;
 }

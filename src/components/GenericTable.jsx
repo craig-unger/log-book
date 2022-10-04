@@ -13,7 +13,7 @@ function GenericTable({
         <thead>
           <tr>
             {displayFields.map((df) => (
-              <th>{df.fieldName}</th>
+              <th key={df.fieldName}>{df.fieldName}</th>
             ))}
           </tr>
         </thead>
@@ -21,7 +21,7 @@ function GenericTable({
           {data.map((item) => ( 
             <tr>
               {displayFields.map((df) => (
-                <td>{df.fieldIdentifier(item)}</td>
+                <td key={item.id}>{df.fieldIdentifier(item)}</td>
               ))}
             </tr>
           ))}

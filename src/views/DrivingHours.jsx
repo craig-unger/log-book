@@ -57,7 +57,7 @@ export default function DrivingHours() {
       <h2>Driving Hours</h2>
       <h3>{learner.firstName} {learner.lastName}</h3>
       <button onClick={() => navigate("/user/drivinghours/newentry")}>Add Entry</button>
-      <GenericTable key={learner._id} data={drivingHours} displayFields={learnerFields}/>
+      <GenericTable data={drivingHours} displayFields={learnerFields}/>
     </div>
   )
 }

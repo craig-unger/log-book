@@ -119,17 +119,17 @@ export default function AddDrivingHours() {
             <div>
                 <label>Start Time</label>
                 <br/>
-                <input type="text" value={startTime} onChange={e=>setStartTime(e.target.value)} />
+                <input type="time" value={startTime} onChange={e=>setStartTime(e.target.value)} />
             </div>
             <div>
                 <label>End Time</label>
                 <br/>
-                <input type="text" value={endTime} onChange={e=>setEndTime(e.target.value)} />
+                <input type="time" value={endTime} onChange={e=>setEndTime(e.target.value)} />
             </div>
             <div>
                 <label>Travel Time</label>
                 <br/>
-                <input type="text" value={travelTime} onChange={e=>setTravelTime(e.target.value)} />
+                <input type="number" value={travelTime} onChange={e=>setTravelTime(e.target.value)} />
             </div>
             <label>Driving Instructor</label><input type="checkbox" id="myCheck" onClick={() => drivingInstructor()}/>
             <button onClick={addTrip}>Add</button>

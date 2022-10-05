@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter ,Routes, Route} from 'react-router-dom';
 import Home from './views/Home';
 import Login from './views/Login';
@@ -9,27 +10,32 @@ import EditProfile from './views/EditProfile';
 import UserLicense from './views/UserLicense';
 import DrivingHours from './views/DrivingHours';
 import AddDrivingHours from './views/AddDrivingHours';
+import { useLocalStorage } from './hooks';
+
+export const TokenContext = React.createContext()
 
 function App() {
+  const [token, setToken] = useLocalStorage('token', localStorage.getItem('token'))
   return (
     <div className="App">
-    <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<Home />}>
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              
-              <Route path='/user' element={<Layout />} >
-                <Route path=":username" element={<UserProfile />} />
-                <Route path=":id" element={<UserProfile />} />
-                <Route path="license/:username" element={<UserLicense />} />
-                <Route path="edit/:username" element={<EditProfile />} />
-                <Route path="drivinghours/:id" element={<DrivingHours/>} />
-                <Route path="drivinghours/newentry" element={<AddDrivingHours/>}/>
-              </Route>              
-            </Route>
-        </Routes>      
-    </BrowserRouter>
+    <TokenContext.Provider value={[token, setToken]}>
+      <BrowserRouter>
+          <Routes>
+              <Route path="/" element={<Home />}>
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                
+                <Route path='/user' element={<Layout />} >
+                  <Route path="profile" element={<UserProfile />} />
+                  <Route path="license" element={<UserLicense />} />
+                  <Route path="edit" element={<EditProfile />} />
+                  <Route path="drivinghours" element={<DrivingHours/>} />
+                  <Route path="drivinghours/newentry" element={<AddDrivingHours />}/>
+                </Route>              
+              </Route>
+          </Routes>      
+      </BrowserRouter>
+    </TokenContext.Provider>  
     </div>
   );
 }

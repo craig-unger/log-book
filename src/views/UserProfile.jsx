@@ -1,19 +1,20 @@
-import { useEffect, useState } from 'react'
-import {useParams,useOutletContext,Link} from 'react-router-dom'
+import { useContext, useEffect, useState } from 'react'
+import {useParams,useOutletContext,Link, useNavigate} from 'react-router-dom'
+import { TokenContext } from '../App';
 // import { fetchAllUsers } from '../web-services'
 
 
 export default function UserProfile(){
-
+    const [token, setToken] = useContext(TokenContext)
     const [user,setUser] = useState(); 
-    //params
-    const params = useParams();
+    const navigate = useNavigate();
+    
   
     useEffect(()=>{
 
         let config  = {
             method:'GET',
-            headers:{ 'Authorization': `Bearer ${localStorage.getItem('token')}`}
+            headers:{ 'Authorization': `Bearer ${token}`}
         }
 
         fetch(`http://localhost:8080/account/me`,config)
@@ -23,12 +24,12 @@ export default function UserProfile(){
             })
             .catch(e=>alert(e.message))
 
-    },[params.username])
+    },[token])
 
     // let task = tasks.find(t=>t.assignee == params.assignee); 
     
     //JSX
-    if(user == undefined){      
+    if(!user){      
         return (<div>Not Found</div>);      
     }
     else{
@@ -53,9 +54,8 @@ export default function UserProfile(){
                 <div>
                 <label>Phone: {user?.phone}</label>
                 </div>               
-                    {/* <Link to={"/"}>Go Back</Link> */}
-                <Link to={"/user/edit/$username"}>Edit Profile</Link> |
-                <Link to={"/user/license/$username"}> View License</Link>
+                <button onClick={() => navigate("/user/edit")}>Edit Profile</button>
+                <button onClick={() => navigate("/user/license")}>View Licence</button>
             </div>
         );
 

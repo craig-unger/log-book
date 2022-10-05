@@ -1,21 +1,23 @@
-import {useState, useEffect} from 'react'; 
+import {useState, useEffect, useContext} from 'react'; 
 import {useParams,useOutletContext, useNavigate} from 'react-router-dom'
+import { TokenContext } from '../App';
 
 export default function EditProfile(){
+    const [token, setToken] = useContext(TokenContext)
     //navigation
     const navigate = useNavigate(); 
     //useState
     const [user,setUser] = useState(localStorage.getItem("token"));
     //params
     const params = useParams();
-    // let user = users.find(u=>u.username == params.username);
+    
     const [address, setAddress] = useState(user?.address)
     const [phone, setPhone] = useState(user?.phone)
 
     useEffect(()=>{
         let config  = {
             method:'GET',
-            headers:{ 'Authorization': `Bearer ${localStorage.getItem('token')}`}
+            headers:{ 'Authorization': `Bearer ${token}`}
         }
         fetch(`http://localhost:8080/account/me`,config)
             .then(r=>r.json())
@@ -24,37 +26,31 @@ export default function EditProfile(){
             })
             .catch(e=>alert(e.message))
 
-    },[params.username])
-
-//     fetch(`http://localhost:8080/account/me`,config)
-
-// },[params.username])
+    },[token])
 
     //functions
     function updateProfile(){
         fetch(`http://localhost:8080/account/me`,{
             method:"PUT",
-            headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'Content-Type':'application/json'},
-            // headers:{'Content-Type':'application/json'},
+            headers:{'Authorization': `Bearer ${token}`,'Content-Type':'application/json'},
             body:JSON.stringify( {_id:user._id, address, phone, username:user.username, firstName:user.firstName, lastName:user.lastName, password:user.password})
-            // body:JSON.stringify( {_id:user.username, address, phone})
+    
         })
         .then(r=>r.json())
         .then(j => {
-            //setUser(user.map(u=>u.username == params.username ? j : u)); /////////////////
             setUser(j)
-            navigate("/user/$username")
+            navigate("/user/profile")
         })
         .catch(e => alert(e.message)); 
     }
     // function cancel button
     function backButton(){
-        navigate("/user/$username");
+        navigate("/user/profile");
     }
-    //JSX
+   
 
-    if(user == undefined){      
-        return (<div>Not Found</div>);      
+    if(!user){      
+        return (<div>...loading</div>);      
     }
     else{
         

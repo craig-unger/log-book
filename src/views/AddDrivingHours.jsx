@@ -1,116 +1,68 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
+import { TokenContext } from '../App';
 
 
 export default function AddDrivingHours() {
-    const [learner, setLearner] = useState({});
-    const [username, setUsername] = useState(learner.username);
-    const [password, setPassword] = useState(learner.password);
-    const [firstName, setFirstName] = useState(learner.firstName);
-    const [lastName, setLastName] = useState(learner.lastName);
-    const [address, setAddress] = useState(learner.address);
-    const [phone, setPhone] = useState(learner.phone);
-    const [licenseNo, setLicenseNo] = useState(learner.licenseNo);
-    const [licenseType, setLicenseType] = useState(learner.licenseType);
-    const [licenseIssueDate, setLicenseIssueDate] = useState(learner.licenseIssueDate);
-    const [licenseExpiryDate, setLicenseExpiryDate] = useState(learner.licenseExpiryDate);
-    const [roles, setRoles] = useState(learner.roles)
-    const [logbookHours, setLogbookHours] = useState(learner.logbookHours);
-    const [date,setDate] = useState("");
-    const [startTime, setStartTime] = useState("");
-    const [endTime, setEndTime] = useState("");
-    const [travelTime, setTravelTime] = useState(0.0);
-    const [id, setId] = useState("");
-    const navigate = useNavigate();
-    
+  const [token,setToken] = useContext(TokenContext)
+  const navigate = useNavigate();
+  const [user,setUser] = useState();
+  const [date, setDate] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [travelTime, setTravelTime] = useState();
+  const [instructor, setInstructor] = useState(false) 
   
-    // const { id } = useParams();
-  
-    async function getLearner(){
-      var myHeaders = new Headers();
-      myHeaders.append('Authorization',`Bearer ${localStorage.getItem('token')}`, "Content-Type", "application/json");
-      
-      var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow'
-      };
-      const response = await fetch(`http://localhost:8080/account/me`, requestOptions);
-      // if(response.status !== 200){
-      //   navigate(`/learners/${id}`)
-      // }
-      const learner = await response.json();
-      setLearner(learner);
-      setUsername(learner.username);
-      setPassword(learner.password);
-      setFirstName(learner.firstName);
-      setLastName(learner.lastName);
-      setAddress(learner.address);
-      setPhone(learner.phone);
-      setLicenseNo(learner.licenseNo);
-      setLicenseType(learner.licenseType);
-      setLicenseIssueDate(learner.licenseIssueDate);
-      setLicenseExpiryDate(learner.licenseExpiryDate);
-      setRoles(learner.roles)
-      setLogbookHours(learner.logbookHours);
-      
-      setId(learner._id)
 
+  useEffect(()=>{
+
+      let config  = {
+          method:'GET',
+          headers:{ 'Authorization': `Bearer ${token}`}
       }
-  
-    useEffect(() => {
-      getLearner();
-    }, []);
+
+      fetch(`http://localhost:8080/account/me`,config)
+          .then(r=>r.json())
+          .then(j => setUser(j))
+          .catch(e=>alert(e.message))
+
+  },[token])
+       
   
     async function addTrip(){
-      // const drivingHours = learner.drivingHoursIds.push()
-      const learner = 
+      const entry = 
       {
-        _id: id,
-        username: username,
-        password: password,
-        firstName: firstName,
-        lastName: lastName,
-        address: address,
-        phone: phone,
-        licenseNo: licenseNo,
-        licenseType: licenseType,
-        licenseIssueDate: licenseIssueDate,
-        licenseExpiryDate: licenseExpiryDate,
-        roles: roles,
-        logbookHours: logbookHours[
-            {date,
+            date,
             startTime,
             endTime,
-            travelTime
-            }
-        ],
-      }
-      const newArray = [...logbookHours]
+            travelTime,
+            instructor,
+        }
       const headers = new Headers()
-      headers.append('Authorization',`Bearer ${localStorage.getItem('token')}`);
+      headers.append('Authorization',`Bearer ${token}`);
       headers.append("Content-Type", "application/json")
       const requestOptions = {
-          method: "PUT",
+          method: "POST",
           headers,
-          body: JSON.stringify(learner),
-          redirect: "follow"
+          body: JSON.stringify(entry),
+          
       };
-      await fetch(`http://localhost:8080/account/${id}`, requestOptions);
+      await fetch(`http://localhost:8080/account/logbook-entry`, requestOptions);
       
-    //    navigate(`/account/me`);
+       navigate(-1);
     }
 
-    function drivingInstructor(){
-        return(
-            travelTime * 3
-        )
-    }
-
+  if(!user){
+    return(
+    <div>
+    ...loading
+    </div>
+    )
+  }  
   return (
     <div>
       <h2>New Learning Hours</h2>
-      <h3>{learner._id}</h3>
+      <h3>{user._id}</h3>
       <div>
                 <label>Date</label>
                 <br/>
@@ -131,7 +83,7 @@ export default function AddDrivingHours() {
                 <br/>
                 <input type="number" value={travelTime} onChange={e=>setTravelTime(e.target.value)} />
             </div>
-            <label>Driving Instructor</label><input type="checkbox" id="myCheck" onClick={() => drivingInstructor()}/>
+            <label>Driving Instructor</label><input type="checkbox" checked={instructor} onChange={() => setInstructor(!instructor)} />
             <button onClick={addTrip}>Add</button>
     </div>
   )

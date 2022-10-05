@@ -1,63 +1,71 @@
 import React from 'react'
 import { useContext, useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { TokenContext } from '../App';
 import GenericTable from '../components/GenericTable';
+import { parseJwt } from '../web-services';
 
 export default function DrivingHours() {
-  
+    const [token,setToken] = useContext(TokenContext)
     const navigate = useNavigate();
-    const [learner, setLearner] = useState({});
-    const [drivingHours, setDrivingHours] = useState([]);
-    const [loaded, setLoaded] = useState(false);
-    const [learnerFields, setlearnerFields] = useState([
-        {
-          fieldName: "Date",
-          fieldIdentifier: (learner) => learner.date,
-        },
-        {
-          fieldName: "Start Time",
-          fieldIdentifier: (dh) => dh.startTime,
-        },
-        {
-          fieldName: "End Time",
-          fieldIdentifier: (dh) => dh.endTime,
-        },
-        {
-            fieldName: "Total Trip Time",
-            fieldIdentifier: (dh) => dh.travelTime.toFixed(2)
-          },
-      
-       
-     ]); 
-  
-    const { id } = useParams();
-  
-    useEffect(() => {
-      refreshlearner();
-    }, []);
-  
-    async function refreshlearner() {
-      var myHeaders = new Headers();
-      myHeaders.append('Authorization',`Bearer ${localStorage.getItem('token')}`, "Content-Type", "application/json");
-      var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow'
-      };
-      const response = await fetch(`http://localhost:8080/account/me`, requestOptions)
-      const learner = await response.json();
-       setLearner(learner);
-       setDrivingHours(learner.logbookHours);
-      
-      }
+    const [user,setUser] = useState(); 
     
   
+    useEffect(()=>{
+
+        let config  = {
+            method:'GET',
+            headers:{ 'Authorization': `Bearer ${token}`}
+        }
+
+        fetch(`http://localhost:8080/account/me`,config)
+            .then(r=>r.json())
+            .then(j => setUser(j))
+            .catch(e=>alert(e.message))
+
+    },[token])
+  
+    if(!user){
+      return(
+        <div>
+
+        </div>
+      )
+    }
     return (
     <div>
       <h2>Driving Hours</h2>
-      <h3>{learner.firstName} {learner.lastName}</h3>
+      <h3>{user.firstName} {user.lastName}</h3>
       <button onClick={() => navigate("/user/drivinghours/newentry")}>Add Entry</button>
-      <GenericTable data={drivingHours} displayFields={learnerFields}/>
+      <button onClick={() => navigate("/user/license")}>Back to Licence details</button>
+      <div>
+         
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Start Time</th>
+                  <th>End Time</th>
+                  <th>Travel Time</th>
+                  <th>Instructor</th>
+                </tr>
+              </thead>
+              <tbody>
+              {user.logbookHours.map(le =>
+                <tr>
+                  <td>{le.date}</td>
+                  <td>{le.startTime}</td>
+                  <td>{le.endTime}</td>
+                  <td>{le.travelTime}</td>
+                  <td>{le.instructor}</td>
+                </tr>
+                 )}
+              </tbody>
+            </table>
+          </div>
+       
+      </div>
     </div>
   )
 }

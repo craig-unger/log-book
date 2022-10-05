@@ -8,6 +8,7 @@ export default function IssueLicence() {
   const navigate = useNavigate();
   //useState
   const [user, setUser] = useState();
+  const [logbookHours, setLogbookHours] = useState();
   //params
   const { id } = useParams();
 
@@ -30,7 +31,8 @@ export default function IssueLicence() {
 
     fetch(`http://localhost:8080/admin/${id}`, requestOptions)
       .then((response) => response.json())
-      .then((result) => setUser(result))
+      .then((result) => 
+        setUser(result))
       .catch((error) => console.log("error", error));
   }, []);
 
@@ -95,6 +97,11 @@ export default function IssueLicence() {
         </div>
         <div>
           <label>Licence No: {user._id} </label>
+        </div>
+        <div>
+          {user.logbookHours.map(u => 
+            <label>Driving Hours: {u.travelTime}</label>
+            )}
         </div>
         <div>
           <label>Licence Type: </label>

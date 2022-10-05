@@ -11,6 +11,7 @@ export default function AddDrivingHours() {
   const [endTime, setEndTime] = useState("");
   const [travelTime, setTravelTime] = useState();
   const [instructor, setInstructor] = useState(false);
+  const [nightHours, setNightHours] = useState(false);
 
   useEffect(() => {
     let config = {
@@ -31,6 +32,7 @@ export default function AddDrivingHours() {
       endTime,
       travelTime,
       instructor,
+      nightHours,
     };
     const headers = new Headers();
     headers.append("Authorization", `Bearer ${token}`);
@@ -96,6 +98,13 @@ export default function AddDrivingHours() {
         type="checkbox"
         checked={instructor}
         onChange={() => setInstructor(!instructor)}
+      />
+      <br/>
+      <label>Night Hours</label>
+      <input
+        type="checkbox"
+        checked={nightHours}
+        onChange={() => setNightHours(!nightHours)}
       />
       <br />
       <button onClick={addTrip}>Add</button>

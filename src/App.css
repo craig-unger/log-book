@@ -36,18 +36,150 @@ a {
   color: orange;
 }
 
-.Menu-div{
+.Menu-div {
   /* background:rgb(255, 130, 0); */
   background: #263e7a;
-  color: wheat;  
+  color: wheat;
   /* padding: 10px;
   margin-bottom: 0px; */
   padding: 41px;
 }
 
-.User-info{
+.User-info {
   text-align: right;
-  margin-bottom:-70px;
+  margin-bottom: -70px;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.Div-footer-text {
+  text-align: center;
+  padding-left: 113px;
+  font-weight: 500;
+}
+
+.Div-footer {
+  background: #dee3e5;
+  padding: 10px;
+}
+
+img {
+  height: 255px;
+  padding: 80px; 
+}
+
+.Div-table {
+  width: 80%;
+}
+
+.Div-left {
+  float: left;
+  width: 15%;
+  padding: 15px;
+}
+
+.Div-right {
+  float: right;
+  width: 20%;
+}
+
+table {
+  border-style: solid;
+  border-spacing: 10px;
+  border-color: black;
+  border-width: 2px;
+}
+
+select {
+  padding: 3px 17px 3px 17px;
+  font-size: 15px;
+  margin: 5px;
+  min-width: 190px;
+  min-height: 35px;
+  text-align: center;
+}
+
+.Div-border {
+  padding: 30px;
+  border: black;
+  border-style: inset;
+}
+
+button {
+  font-size: 18px;
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  background: #263e7a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px 5px 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: orange;
+}
+
+input {
+  text-align: center;
+  font-size: 15px;
+  margin: 5px;
+  min-width: 225px;
+  min-height: 30px;
+}
+
+a {
+  color: orange;
+}
+
+.Menu-div {
+  /* background:rgb(255, 130, 0); */
+  background: #263e7a;
+  color: wheat;
+  padding: 41px;
+}
+
+.User-info {
+  text-align: right;
+  margin-bottom: -70px;
 }
 
 .App {
@@ -89,114 +221,5 @@ a {
   }
 }
 
-table thead tr{
-  @apply bg-gray-700 text-white;
- }
- 
- table th{
-   @apply px-3 py-2 font-semibold
- }
- 
- table tbody tr{
-   @apply bg-gray-50;
- }
- 
- table tbody tr:nth-child(even){
-   @apply bg-gray-100;
- }
- 
- table tbody tr:hover{
-   @apply bg-gray-300;
- }
- 
- table tbody td{
-   @apply px-3 py-1;
- }
- 
- table{
-   @apply mx-auto;
- }
- 
- .btn{
-   @apply text-white font-semibold py-0.5 px-2 rounded;
- }
- 
- .blue-btn{
-   @apply btn bg-blue-500 hover:bg-blue-700;
- }
- 
- .red-btn{
-   @apply btn bg-red-500 hover:bg-red-700;
- }
- .gray-btn{
-   @apply btn bg-gray-500 hover:bg-gray-700;
- }
- .green-btn{
-   @apply btn bg-green-500 hover:bg-green-700;
- }
- .form{
-   @apply bg-slate-100;
- }
- 
- .form input{
-   @apply bg-slate-100 p-2 focus:outline-none focus:border-[2px]
-    focus:p-1.5 border-black rounded cursor-pointer
-    focus:cursor-text hover:bg-slate-200 focus:bg-slate-200
-    disabled:cursor-not-allowed;
- }
- 
- .form-btn{
-   @apply text-white font-semibold py-2 rounded;
- }
- 
- .form-btn-blue{
-   @apply form-btn bg-blue-500 hover:bg-blue-700;
- }
- 
- .form-btn-red{
-   @apply form-btn bg-red-500 hover:bg-red-700;
- }
- 
- .form-btn-gray{
-   @apply form-btn bg-gray-500 hover:bg-gray-700;
- }
- 
- 
- .form-btn-green{
-   @apply form-btn bg-green-500 hover:bg-green-700;
- }
- 
- h1 {
-   @apply font-medium leading-tight text-5xl mt-0 mb-2 text-center;
- }
- 
- h2 {
-   @apply font-medium leading-tight text-4xl mt-0 mb-2 text-center;
- }
- 
- h3 {
-   @apply font-medium leading-tight text-3xl mt-0 mb-2 text-center;
- }
- 
- h4 {
-   @apply font-medium leading-tight text-2xl mt-0 mb-2 text-center;
- }
- 
- h5 {
-   @apply font-medium leading-tight text-xl mt-0 mb-2 text-center;
- }
- 
- h6 {
-   @apply font-medium leading-tight text-base mt-0 mb-2 text-center;
- }
- .show-validation input{
-   @apply invalid:border-red-500 invalid:border-[2px] invalid:p-[6px]
- }
- .show-invalid input{
-   @apply invalid:border-red-500 invalid:border-[2px] invalid:p-[6px]
- }
- .home-btn{
-   @apply btn bg-teal-500 hover:bg-teal-700 block mx-auto
- }
- 
- 
+
+

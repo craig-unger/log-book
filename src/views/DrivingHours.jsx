@@ -8,6 +8,7 @@ export default function DrivingHours() {
   const navigate = useNavigate();
   const [user, setUser] = useState();
   let totalTime = 120;
+  let nightHours = 20;
 
   useEffect(() => {
     let config = {
@@ -38,7 +39,7 @@ export default function DrivingHours() {
       <h3>
         {user.firstName} {user.lastName}
       </h3>
-      <div className="my-5">
+      <div>
         <button onClick={() => navigate("/user/drivinghours/newentry")}>
           Add Entry
         </button>
@@ -55,32 +56,39 @@ export default function DrivingHours() {
                 <th>Start Time</th>
                 <th>End Time</th>
                 <th>Instructor Trip</th>
+                <th>Night Hours</th>
                 <th>Travel Time</th>
-                <th>Hours Remaining</th>
               </tr>
             </thead>
-            {user.logbookHours.map((le) => {
-              totalTime -= le.travelTime;
-              return (
-                <tbody>
-                  <tr>
+            <tbody>
+              {user.logbookHours.map((le) => {
+                if (le.instructor) {
+                  totalTime -= le.travelTime * 3;
+                } else totalTime -= le.travelTime;
+                if(le.nightHours){
+                  nightHours -= le.travelTime
+                }
+                return (
+                  <tr key={le._id}>
                     <td>{formatDate(le.date)}</td>
                     <td>{le.startTime}</td>
                     <td>{le.endTime}</td>
                     <td>{le.instructor ? "Yes" : "No"}</td>
+                    <td>{le.nightHours ? "Yes" : "No"}</td>
                     <td>
                       {le.travelTime && le.instructor
                         ? le.travelTime * 3
                         : le.travelTime}
                     </td>
-                    <td>{totalTime}</td>
                   </tr>
-                </tbody>
-              );
-            })}
+                );
+              })}
+            </tbody>
           </table>
         </div>
       </div>
+      <h2 className="p-10">Total Learning Hours Remaining: {totalTime}</h2>
+      <h3>Night Hours Remaining: {nightHours}</h3>
     </div>
   );
 }

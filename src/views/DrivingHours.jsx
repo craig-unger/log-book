@@ -7,8 +7,6 @@ export default function DrivingHours() {
   const [token, setToken] = useContext(TokenContext);
   const navigate = useNavigate();
   const [user, setUser] = useState();
-  const [travelTime, setTravelTime] = useState();
-  const [logbookHours, setLogbookHours] = useState(user?.logbookHours);
   let totalTime = 120;
 
   useEffect(() => {
@@ -31,7 +29,7 @@ export default function DrivingHours() {
     var dd = String(dateObject.getDate()).padStart(2, "0");
     var mm = String(dateObject.getMonth() + 1).padStart(2, "0"); //January is 0!
     var yyyy = dateObject.getFullYear();
-    return mm + "/" + dd + "/" + yyyy;
+    return dd + "/" + mm + "/" + yyyy;
   }
 
   return (
@@ -41,12 +39,12 @@ export default function DrivingHours() {
         {user.firstName} {user.lastName}
       </h3>
       <div className="my-5">
-      <button onClick={() => navigate("/user/drivinghours/newentry")}>
-        Add Entry
-      </button>
-      <button onClick={() => navigate("/user/license")}>
-        Back to Licence details
-      </button>
+        <button onClick={() => navigate("/user/drivinghours/newentry")}>
+          Add Entry
+        </button>
+        <button onClick={() => navigate("/user/license")}>
+          Back to Licence details
+        </button>
       </div>
       <div>
         <div>
@@ -56,18 +54,20 @@ export default function DrivingHours() {
                 <th>Date</th>
                 <th>Start Time</th>
                 <th>End Time</th>
+                <th>Instructor Trip</th>
                 <th>Travel Time</th>
                 <th>Hours Remaining</th>
               </tr>
             </thead>
-            <tbody>
-              {user.logbookHours.map((le) => {
-                totalTime -= le.travelTime;
-                return (
+            {user.logbookHours.map((le) => {
+              totalTime -= le.travelTime;
+              return (
+                <tbody>
                   <tr>
                     <td>{formatDate(le.date)}</td>
                     <td>{le.startTime}</td>
                     <td>{le.endTime}</td>
+                    <td>{le.instructor ? "Yes" : "No"}</td>
                     <td>
                       {le.travelTime && le.instructor
                         ? le.travelTime * 3
@@ -75,9 +75,9 @@ export default function DrivingHours() {
                     </td>
                     <td>{totalTime}</td>
                   </tr>
-                );
-              })}
-            </tbody>
+                </tbody>
+              );
+            })}
           </table>
         </div>
       </div>

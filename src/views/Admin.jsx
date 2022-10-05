@@ -23,6 +23,15 @@ export default function Admin() {
       .catch(error => console.log('error', error));
 },[token])
 
+function formatDate(date){
+  var dateObject = new Date(date);
+  var dd = String(dateObject.getDate()).padStart(2, '0');
+  var mm = String(dateObject.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = dateObject.getFullYear();
+  return mm + '/' + dd + '/' + yyyy;
+}
+
+
 if(!users){
     return(
     <div>
@@ -42,6 +51,7 @@ if(!users){
                   <th>Licence Type</th>
                   <th>Issue Date</th>
                   <th>Expiry Date</th> 
+                  <th>Issue Licence</th>
                 </tr>
               </thead>
               <tbody>
@@ -51,8 +61,8 @@ if(!users){
                   <td>{u.lastName}</td>
                   <td>{u.licenseNo}</td>
                   <td>{u.licenseType}</td>
-                  <td>{u.licenseIssueDate}</td>
-                  <td>{u.licenseExpiryDate}</td>
+                  <td>{formatDate(u.licenseIssueDate)}</td>
+                  <td>{formatDate(u.licenseExpiryDate)}</td>
                   <td><button onClick={()=> navigate(`/issue/${u._id}`)}>Issue Licence</button></td>
                   
                 </tr>

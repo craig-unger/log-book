@@ -64,7 +64,7 @@ export default function IssueLicence() {
     }
     // function cancel button
     function backButton(){
-        navigate("/user/profile");
+        navigate("/admin");
     }
    
 

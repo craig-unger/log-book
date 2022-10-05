@@ -73,11 +73,11 @@ export default function EditProfile(){
                 <div>
                 <label>Address: {user?.address} </label>
                 </div>
-                <input value={address || ''} onChange={e=>setAddress(e.target.value)} />
+                <input className='form input' placeholder={user.address} value={address || ''} onChange={e=>setAddress(e.target.value)} />
                 <div>
                 <label>Phone: {user?.phone} </label>
                 </div>
-                <input value={phone || ''} onChange={e=>setPhone(e.target.value)} />
+                <input className='form input' placeholder={user.phone} value={phone || ''} onChange={e=>setPhone(e.target.value)} />
                 <div>
             <button onClick={updateProfile}>Save</button>
             <button onClick={backButton}>Cancel</button>

@@ -26,38 +26,40 @@ export default function Register(){
     return (
         <div className="Div-border">
             <h2>Register Today</h2>
-            <div>
+            <div className="form input">
+            
                 <label>Username (Must be a valid email address)</label>
                 <br/>
                 <input type="email" value={username} onChange={e=>setUsername(e.target.value)} />
-            </div>
-            <div>
+            
+           
                 <label>Password</label>
                 <br/>
                 <input type="password" value={password} onChange={e=>setPassword(e.target.value)} />
-            </div>
-            <div>
+            
+            
                 <label>Enter First Name</label>
                 <br/>
                 <input type="text" value={firstName} onChange={e=>setFirstName(e.target.value)} />
-            </div>
-            <div>
+            
+            
                 <label>Last Name</label>
                 <br/>
                 <input type="text" value={lastName} onChange={e=>setLastName(e.target.value)} />
-            </div>
-            <div>
+            
+            
                 <label>Address</label>
                 <br/>
                 <input type="text" value={address} onChange={e=>setAddress(e.target.value)} />
-            </div>
-            <div>
+            
+            
                 <label>Phone</label>
                 <br/>
                 <input type="number" value={phone} onChange={e=>setPhone(e.target.value)} />
-            </div>
+          
 
             <button onClick={submit}>Register</button>
+            </div>
         </div>
     )
 

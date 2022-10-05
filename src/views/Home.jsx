@@ -14,12 +14,9 @@ export default function Home(){
             <UserInfo />
                 <Link to={"/"}>Home</Link> 
                 {/* <Link to={"/tickets"}>Tickets</Link>  */}
-                <Link to={"/tickets"}>| CSR Login |</Link>
-                {/* <Link to={"/tickets/create"}>Submit Ticket</Link>  */}   
-        
             </div>
             <Outlet />
-            <img src="/images/snsw-logo.png" alt="Service NSW Logo"/>    
+            <img className="mx-auto" src="/images/snsw-logo.png" alt="Service NSW Logo"/>    
 
         </div>
   )

@@ -20,7 +20,7 @@ export default function UserInfo(){
     if(!token){
         return (
             <div>
-                <Link to="/login">Customer Login</Link> |  
+                <Link to="/login">Login</Link> |  
                 <Link to="/register"> Register</Link>
             </div>
         ); 
@@ -29,7 +29,7 @@ export default function UserInfo(){
     return (
         <div>
             <div className="User-info">
-            <h2>Logged in as {payload.firstName}</h2>
+            <h2 className="text-right">Logged in as {payload.firstName}</h2>
             </div>
             <Link to="/user/profile">Personal Information | </Link>
             <Link to={"/"} onClick={logout}>Logout</Link>

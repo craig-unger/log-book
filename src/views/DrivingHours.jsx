@@ -1,15 +1,16 @@
 import React from 'react'
 import { useContext, useEffect, useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { TokenContext } from '../App';
-import GenericTable from '../components/GenericTable';
-import { parseJwt } from '../web-services';
+
 
 export default function DrivingHours() {
     const [token,setToken] = useContext(TokenContext)
     const navigate = useNavigate();
-    const [user,setUser] = useState(); 
-    
+    const [user,setUser] = useState();
+    const [travelTime, setTravelTime] = useState(); 
+    const [logbookHours, setLogbookHours] = useState(user?.logbookHours)
+    let totalTime = 0
   
     useEffect(()=>{
 
@@ -28,10 +29,21 @@ export default function DrivingHours() {
     if(!user){
       return(
         <div>
-
+            ...loading
         </div>
       )
     }
+    function formatDate(date){
+      var dateObject = new Date(date);
+      var dd = String(dateObject.getDate()).padStart(2, '0');
+      var mm = String(dateObject.getMonth() + 1).padStart(2, '0'); //January is 0!
+      var yyyy = dateObject.getFullYear();
+      return mm + '/' + dd + '/' + yyyy;
+    }
+
+  
+    
+    
     return (
     <div className="Div-border">
       <h2>Driving Hours</h2>
@@ -41,26 +53,30 @@ export default function DrivingHours() {
       <div>
          
           <div>
+            <div>
+            
+            </div>
             <table>
               <thead>
                 <tr>
                   <th>Date</th>
                   <th>Start Time</th>
                   <th>End Time</th>
-                  <th>Travel Time</th>
-                  <th>Instructor</th>
+                  <th>Travel Time</th>                
                 </tr>
               </thead>
               <tbody>
-              {user.logbookHours.map(le =>
+              {user.logbookHours.map(le => {
+                totalTime += le.travelTime 
+                return(
                 <tr>
-                  <td>{le.date}</td>
+                  <td>{formatDate(le.date)}</td>
                   <td>{le.startTime}</td>
                   <td>{le.endTime}</td>
-                  <td>{le.travelTime}</td>
-                  <td>{le.instructor}</td>
+                  <td>{le.travelTime * (le.instructor) ? 3 : 1}</td>
+                  <td>{totalTime}</td>
                 </tr>
-                 )}
+              )})}
               </tbody>
             </table>
           </div>

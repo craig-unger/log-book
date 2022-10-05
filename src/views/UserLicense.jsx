@@ -28,7 +28,7 @@ export default function UserLicense(){
     if(!user){      
         return (<div>...loading</div>);      
     }
-    else{
+    else if(user.licenseNo != "N/A"){
         
         return(
             <div className="Div-border">
@@ -61,6 +61,39 @@ export default function UserLicense(){
                
             </div>
         );
+    }
+        else{
+        
+            return(
+                <div className="Div-border">
+                    <div>
+                    <h2>License Details</h2>
+                    </div>
+                    <div>
+                    <label>Customer ID: {user?._id}</label>
+                    </div>
+                    <div>
+                    <label>First Name: {user?.firstName}</label>
+                    </div>                
+                    <div>
+                    <label>Last Name: {user?.lastName}</label>
+                    </div>
+                    <div>
+                    <label>License Number: {user?.licenseNo}</label>
+                    </div>
+                    <div>
+                    <label>License Type: {user?.licenseType}</label>
+                    </div>
+                    <div>
+                    <label>Issue Date: {user?.licenseIssueDate}</label>
+                    </div>
+                    <div>
+                    <label>Expiry Date: {user?.licenseExpiryDate}</label>
+                    </div>
+                    <button onClick={() => navigate("/user/profile")}>Back to Profile</button>
+                   
+                </div>
+            );
 
     }
 

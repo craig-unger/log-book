@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import {useParams,useOutletContext,Link, useNavigate} from 'react-router-dom'
 import { TokenContext } from '../App';
+import { isInRole } from '../identity';
 // import { fetchAllUsers } from '../web-services'
 
 
@@ -32,7 +33,36 @@ export default function UserProfile(){
     if(!user){      
         return (<div>Not Found</div>);      
     }
-    else{
+    
+    else if(token && isInRole(token, 'admin')){
+        
+        return(
+            <div className="Div-border">
+                <div>
+                <h2>Admin Profile</h2>
+                </div>                
+                <div>
+                <label>ID: {user?._id}</label>
+                </div>
+                <div>
+                <label>First Name: {user?.firstName}</label>
+                </div>
+                <div>
+                <label>Last Name: {user?.lastName}</label>
+                </div>                  
+                <div>
+                <label>Address: {user?.address}</label>
+                </div>
+                <div>
+                <label>Phone: {user?.phone}</label>
+                </div>               
+                <button onClick={() => navigate("/user/edit")}>Edit Profile</button>
+                {token && isInRole(token,'admin') && <button onClick={() =>navigate("/admin")}>View Customers</button>}
+            </div>
+        );
+
+    }
+    else {
         
         return(
             <div className="Div-border">
@@ -40,7 +70,7 @@ export default function UserProfile(){
                 <h2>Customer Profile</h2>
                 </div>                
                 <div>
-                <label>Customer ID: {user?._id}</label>
+                <label>ID: {user?._id}</label>
                 </div>
                 <div>
                 <label>First Name: {user?.firstName}</label>
@@ -56,6 +86,7 @@ export default function UserProfile(){
                 </div>               
                 <button onClick={() => navigate("/user/edit")}>Edit Profile</button>
                 <button onClick={() => navigate("/user/license")}>View Licence</button>
+                
             </div>
         );
 

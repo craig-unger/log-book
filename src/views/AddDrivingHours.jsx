@@ -48,9 +48,9 @@ export default function AddDrivingHours() {
           
       };
       await fetch(`http://localhost:8080/account/logbook-entry`, requestOptions);
-      
        navigate(-1);
     }
+
 
   if(!user){
     return(
@@ -62,7 +62,7 @@ export default function AddDrivingHours() {
   return (
     <div className="Div-border">
       <h2>New Learning Hours</h2>
-      <h3>{user._id}</h3>
+      <h3>Licence No. {user._id}</h3>
       <div>
                 <label>Date</label>
                 <br/>
@@ -83,7 +83,8 @@ export default function AddDrivingHours() {
                 <br/>
                 <input type="number" value={travelTime} onChange={e=>setTravelTime(e.target.value)} />
             </div>
-            <label>Driving Instructor</label><input type="checkbox" checked={instructor} onChange={() => setInstructor(!instructor)} />
+            <label>Driving Instructor</label>
+            <input type="checkbox" checked={instructor} onChange={() => setInstructor(!instructor)} />
             <button onClick={addTrip}>Add</button>
     </div>
   )

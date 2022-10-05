@@ -11,6 +11,8 @@ import UserLicense from './views/UserLicense';
 import DrivingHours from './views/DrivingHours';
 import AddDrivingHours from './views/AddDrivingHours';
 import { useLocalStorage } from './hooks';
+import Admin from './views/Admin';
+import IssueLicence from './views/IssueLicence';
 
 export const TokenContext = React.createContext()
 
@@ -24,7 +26,8 @@ function App() {
               <Route path="/" element={<Home />}>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                
+                <Route path='/admin' element={<Admin/>}/>
+                <Route path='/issue/:id'element={<IssueLicence/>} />
                 <Route path='/user' element={<Layout />} >
                   <Route path="profile" element={<UserProfile />} />
                   <Route path="license" element={<UserLicense />} />

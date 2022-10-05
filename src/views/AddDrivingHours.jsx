@@ -60,7 +60,7 @@ export default function AddDrivingHours() {
     )
   }  
   return (
-    <div>
+    <div className="Div-border">
       <h2>New Learning Hours</h2>
       <h3>{user._id}</h3>
       <div>

@@ -33,7 +33,7 @@ export default function DrivingHours() {
       )
     }
     return (
-    <div>
+    <div className="Div-border">
       <h2>Driving Hours</h2>
       <h3>{user.firstName} {user.lastName}</h3>
       <button onClick={() => navigate("/user/drivinghours/newentry")}>Add Entry</button>

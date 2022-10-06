@@ -47,7 +47,7 @@ export default function DrivingHours() {
           Back to Licence details
         </button>
       </div>
-      <div>
+      <div className="Div-hour-table">
         <div>
           <table>
             <thead>

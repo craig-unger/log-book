@@ -2,6 +2,7 @@ import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TokenContext } from "../App";
+import { VictoryPie } from "victory-pie";
 
 export default function DrivingHours() {
   const [token, setToken] = useContext(TokenContext);
@@ -9,6 +10,11 @@ export default function DrivingHours() {
   const [user, setUser] = useState();
   let totalTime = 120;
   let nightHours = 20;
+  const myData = [
+    { x: "Total Hours", y: totalTime },
+    { x: "Hours Remaining", y: 120 - totalTime },
+    // { x: "Group C", y: 300 },
+  ];
 
   useEffect(() => {
     let config = {
@@ -34,12 +40,14 @@ export default function DrivingHours() {
   }
 
   return (
+    <>
     <div className="Div-border">
+      <div>
       <h2>Driving Hours</h2>
       <h3>
         {user.firstName} {user.lastName}
       </h3>
-      <div>
+      <div className="button-div">
         <button onClick={() => navigate("/user/drivinghours/newentry")}>
           Add Entry
         </button>
@@ -48,7 +56,7 @@ export default function DrivingHours() {
         </button>
       </div>
       <div>
-        <div>
+        <div className="Div-hour-table">
           <table>
             <thead>
               <tr>
@@ -65,8 +73,8 @@ export default function DrivingHours() {
                 if (le.instructor) {
                   totalTime -= le.travelTime * 3;
                 } else totalTime -= le.travelTime;
-                if(le.nightHours){
-                  nightHours -= le.travelTime
+                if (le.nightHours) {
+                  nightHours -= le.travelTime;
                 }
                 return (
                   <tr key={le._id}>
@@ -85,10 +93,34 @@ export default function DrivingHours() {
               })}
             </tbody>
           </table>
+         <div className="victorypie">
+        <VictoryPie
+        data={[
+          { x: `Hours Complete: ${120 - totalTime}`, y: 120 - totalTime },
+          { x: `Hours Remaining: ${totalTime}`, y: totalTime},
+          // { x: "Group C", y: 300 },
+        ]}
+        colorScale={["Green", "red",]}
+        radius={50}
+      />
+      </div> 
         </div>
       </div>
-      <h2 className="p-10">Total Learning Hours Remaining: {totalTime}</h2>
-      <h3>Night Hours Remaining: {nightHours}</h3>
+      </div>
+      
     </div>
+    <div >
+      <h2 className="totalhours">
+        {totalTime >= 1
+          ? `Total Learning Hours Remaining: ${totalTime}`
+          : "Congratulations you have completed all 120 driving hours"}
+      </h2>
+      <h3>
+        {nightHours >= 1
+          ? `Night Hours Remaining: ${nightHours}`
+          : "Congratulations you have completed 20 night hours"}
+      </h3>
+      </div>
+    </>
   );
 }

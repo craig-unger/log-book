@@ -14,7 +14,11 @@ export default function UserInfo() {
   if (!token) {
     return (
       <div>
-        <Link to="/login">Sign In</Link> |<Link to="/register"> Register</Link>
+        <div>
+        <Link to="/login">Sign In</Link>
+        <br/>
+        <Link to="/register"> Register</Link>
+        </div>
       </div>
     );
   }

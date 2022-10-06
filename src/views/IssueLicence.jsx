@@ -79,28 +79,30 @@ export default function IssueLicence() {
     return (
       <div className="Div-border">
         <div>
-          <h2>Edit details</h2>
+          <h2>Customer Details</h2>
         </div>
+        <div className="label-div">
         <label>Customer ID: {user?._id}</label>
-        <div>
+        </div>
+        <div className="label-div">
           <label>Username: {user?.username} </label>
         </div>
-        <div>
+        <div className="label-div">
           <label>First Name: {user?.firstName} </label>
         </div>
-        <div>
+        <div className="label-div">
           <label>Last Name: {user?.lastName} </label>
         </div>
-        <div>
+        <div className="label-div">
           <label>Address: {user?.address} </label>
         </div>
-        <div>
+        <div className="label-div">
           <label>Phone: {user?.phone} </label>
         </div>
-        <div>
+        <div className="label-div">
           <label>Licence No: {user._id} </label>
         </div>
-        <div>
+        <div className="label-div">
           {user.logbookHours.map(u => {
             if (u.instructor) {
               totalTime += u.travelTime * 3;
@@ -109,12 +111,12 @@ export default function IssueLicence() {
               nightHours += u.travelTime
             }
             return(
-            <></>
+            <div key={u._id}></div>
             );
           })}
           <label>Total Driving Hours: {totalTime}</label>
         </div>
-        <div>
+        <div className="label-div">
         <label>Total Night Hours: {nightHours}</label>
         </div>
         <div>
@@ -122,7 +124,7 @@ export default function IssueLicence() {
         </div>
         <div>
           <select
-            value={licenseType || ""}
+            value={licenseType}
             onChange={(e) => setLicenseType(e.target.value)}
           >
             <option value="">- Please select category -</option>

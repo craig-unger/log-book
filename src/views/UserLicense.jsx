@@ -37,25 +37,25 @@ export default function UserLicense() {
         <div>
           <h2>Licence Details</h2>
         </div>
-        <div>
+        <div className="label-div">
           <label>Customer ID: {user?._id}</label>
         </div>
-        <div>
+        <div className="label-div">
           <label>First Name: {user?.firstName}</label>
         </div>
-        <div>
+        <div className="label-div">
           <label>Last Name: {user?.lastName}</label>
         </div>
-        <div>
+        <div className="label-div">
           <label>Licence Number: {user?.licenseNo}</label>
         </div>
-        <div>
+        <div className="label-div">
           <label>Licence Type: {user?.licenseType}</label>
         </div>
-        <div>
+        <div className="label-div">
           <label>Issue Date: {formatDate(user?.licenseIssueDate)}</label>
         </div>
-        <div>
+        <div className="label-div">
           <label>Expiry Date: {formatDate(user?.licenseExpiryDate)}</label>
         </div>
         <button onClick={() => navigate("/user/drivinghours")}>

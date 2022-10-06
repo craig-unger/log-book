@@ -1,93 +1,3 @@
-/* .Div-menu{
-border:1px solid green;
-padding:5px;
-margin:5px;
-} */
-
-.Div-border {
-  padding: 30px;
-  border: black;
-  border-style: inset;
-}
-
-button {
-  font-size: 18px;
-  margin-top: 10px;
-  margin-left: 5px;
-  margin-right: 5px;
-  background: #263e7a;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px 5px 10px;
-  cursor: pointer;
-}
-button:hover {
-  background: orange;
-}
-
-input {
-  text-align: center;
-  font-size: 15px;
-  margin: 5px;
-}
-
-a {
-  color: orange;
-}
-
-.Menu-div {
-  /* background:rgb(255, 130, 0); */
-  background: #263e7a;
-  color: wheat;
-  /* padding: 10px;
-  margin-bottom: 0px; */
-  padding: 41px;
-}
-
-.User-info {
-  text-align: right;
-  margin-bottom: -70px;
-}
-
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 .Div-footer-text {
   text-align: center;
   padding-left: 113px;
@@ -100,8 +10,22 @@ a {
 }
 
 img {
-  height: 255px;
+  height: 400px;
   padding: 80px; 
+}
+.img-Menu-div{
+  height:70px;
+  float: left;
+  margin: 2px;
+  padding: 2px;
+  margin-bottom: 5px;
+  margin-top: -15px;
+  margin-left: 400px;
+  background-color: white;
+  
+}
+.div-hour-table{
+  padding-top: 10px;
 }
 
 .Div-table {
@@ -168,17 +92,22 @@ input {
   min-height: 30px;
   padding: 5px;
 }
+label{
+  padding: 25px
+}
 
 a {
   color: orange;
+  margin-right: 200px;
 }
 
 .Menu-div {
-  /* background:rgb(255, 130, 0); */
   background: #263e7a;
   color: wheat;
   padding: 41px;
+  margin-left: -400px;
 }
+
 
 .User-info {
   text-align: right;
@@ -187,6 +116,7 @@ a {
 
 .App {
   text-align: center;
+  background: #d3d3d33b;
 }
 
 .App-logo {
@@ -223,6 +153,32 @@ a {
     transform: rotate(360deg);
   }
 }
+.button-div{
+  padding: 10px;
+}
+.label-div{
+  padding: 5px;
+}
+.Div-checkbox{
+  display: inline-grid;
+}
+.Div-footer-text {
+  text-align: center;
+  padding-left: 113px;
+  font-weight: 500;
+}
 
+.Div-footer {
+  background: #dee3e5;
+  padding: 10px;
+}
+.victorypie{
+  float: right;
+  margin-top: -320px;
+  margin-right: 100px;
+}
+.totalhours{
+  margin-left: 600px;
+}
 
 

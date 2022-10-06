@@ -35,7 +35,7 @@ export default function Admin() {
     return <div>...loading</div>;
   }
   return (
-    <div>
+    <div className="Div-border">
       <h1>Customer List</h1>
       <div>
         <div></div>

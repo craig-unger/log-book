@@ -14,6 +14,10 @@ export default function AddDrivingHours() {
   const [nightHours, setNightHours] = useState(false);
 
   useEffect(() => {
+    calculateTravelTime();
+  },[endTime,startTime]);
+
+  useEffect(() => {
     let config = {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
@@ -46,6 +50,18 @@ export default function AddDrivingHours() {
     navigate(-1);
   }
 
+  function calculateTravelTime(){
+    let endTimes = endTime.split(":")
+    let startTimes = startTime.split(":")
+    let total = endTimes[0] - startTimes[0]
+    if (startTimes[1] > endTimes[1]) {
+      total -= 1
+    }
+    console.log(endTimes,startTimes)
+    setTravelTime(total)
+
+  }
+
   if (!user) {
     return <div>...loading</div>;
   }
@@ -70,7 +86,10 @@ export default function AddDrivingHours() {
           required={true}
           type="time"
           value={startTime}
-          onChange={(e) => setStartTime(e.target.value)}
+          onChange={(e) => { 
+            setStartTime(e.target.value)
+            calculateTravelTime()
+          }}
         />
       </div>
       <div>
@@ -80,7 +99,10 @@ export default function AddDrivingHours() {
           required={true}
           type="time"
           value={endTime}
-          onChange={(e) => setEndTime(e.target.value)}
+          onChange={(e) => {
+            setEndTime(e.target.value)
+            calculateTravelTime()
+          }}
         />
       </div>
       <div>
@@ -88,11 +110,14 @@ export default function AddDrivingHours() {
         <br />
         <input
           required={true}
+          disabled
           type="number"
           value={travelTime}
           onChange={(e) => setTravelTime(e.target.value)}
         />
       </div>
+      <div>
+      <div className="Div-checkbox">
       <label>Driving Instructor</label>
       <input
         type="checkbox"
@@ -106,9 +131,11 @@ export default function AddDrivingHours() {
         checked={nightHours}
         onChange={() => setNightHours(!nightHours)}
       />
-      <br />
+      </div>
+      <br/>
       <button onClick={addTrip}>Add</button>
       <button onClick={() => navigate(-1)}>Cancel</button>
+      </div>
     </div>
   );
 }

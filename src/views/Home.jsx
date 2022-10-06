@@ -1,17 +1,23 @@
-import {  Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import UserInfo from "./UserInfo";
-import '../App.css';
-import React from "react";
+import "../App.css";
+import React, { useContext } from "react";
+import { TokenContext } from "../App";
 
 export default function Home() {
-
+  const [token, setToken] = useContext(TokenContext);
   return (
     <div>
       <div className="Menu-div">
+        <img
+          className="img-Menu-div"
+          src="/images/snsw-logo-2.png"
+          alt="Service NSW Logo"
+        />
         <UserInfo />
-        </div>
+      </div>
       <Outlet />
-      <img src="/images/snsw-logo-2.png" alt="Service NSW Logo" />
+      {(token == undefined) ? <img src="/images/snsw-logo-2.png" alt="Service NSW Logo" /> : null}
       <div className="Div-footer">
         <div className="Div-footer-text">
           <p>ACKNOWLEDGEMENT OF COUNTRY</p>

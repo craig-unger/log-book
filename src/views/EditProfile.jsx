@@ -62,17 +62,19 @@ export default function EditProfile() {
         <div>
           <h2>Edit details</h2>
         </div>
+        <div className="label-div">
         <label>Customer ID: {user?._id}</label>
-        <div>
+        </div>
+        <div className="label-div">
           <label>Username: {user?.username} </label>
         </div>
-        <div>
+        <div className="label-div">
           <label>First Name: {user?.firstName} </label>
         </div>
-        <div>
+        <div className="label-div">
           <label>Last Name: {user?.lastName} </label>
         </div>
-        <div>
+        <div className="label-div">
           <label>Address: {user?.address} </label>
         </div>
         <input

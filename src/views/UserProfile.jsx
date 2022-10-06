@@ -31,19 +31,19 @@ export default function UserProfile() {
         <div>
           <h2>Admin Profile</h2>
         </div>
-        <div>
+        <div className="label-div">
           <label>ID: {user?._id}</label>
         </div>
-        <div>
+        <div className="label-div">
           <label>First Name: {user?.firstName}</label>
         </div>
-        <div>
+        <div className="label-div">
           <label>Last Name: {user?.lastName}</label>
         </div>
-        <div>
+        <div className="label-div">
           <label>Address: {user?.address}</label>
         </div>
-        <div>
+        <div className="label-div">
           <label>Phone: {user?.phone}</label>
         </div>
         <button onClick={() => navigate("/user/edit")}>Edit Profile</button>
@@ -58,19 +58,19 @@ export default function UserProfile() {
         <div>
           <h2>Customer Profile</h2>
         </div>
-        <div>
+        <div className="label-div">
           <label>ID: {user?._id}</label>
         </div>
-        <div>
+        <div className="label-div">
           <label>First Name: {user?.firstName}</label>
         </div>
-        <div>
+        <div className="label-div">
           <label>Last Name: {user?.lastName}</label>
         </div>
-        <div>
+        <div className="label-div">
           <label>Address: {user?.address}</label>
         </div>
-        <div>
+        <div className="label-div">
           <label>Phone: {user?.phone}</label>
         </div>
         <button onClick={() => navigate("/user/edit")}>Edit Profile</button>

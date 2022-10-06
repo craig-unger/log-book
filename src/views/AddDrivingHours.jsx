@@ -116,9 +116,11 @@ export default function AddDrivingHours() {
           onChange={(e) => setTravelTime(e.target.value)}
         />
       </div>
+
       <div>
       <div className="Div-checkbox">
-      <label>Driving Instructor</label>
+
+     <label>Driving Instructor</label>
       <input
         type="checkbox"
         checked={instructor}
@@ -133,6 +135,7 @@ export default function AddDrivingHours() {
       />
       </div>
       <br/>
+
       <button onClick={addTrip}>Add</button>
       <button onClick={() => navigate(-1)}>Cancel</button>
       </div>

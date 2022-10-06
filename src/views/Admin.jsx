@@ -37,6 +37,9 @@ export default function Admin() {
   return (
     <div>
       <h1>Customer List</h1>
+      <div>
+        <div></div>
+        <div>
       <table>
         <thead>
           <tr>
@@ -67,6 +70,9 @@ export default function Admin() {
           ))}
         </tbody>
       </table>
+      </div>
+      <div></div>
+      </div>
     </div>
   );
 }

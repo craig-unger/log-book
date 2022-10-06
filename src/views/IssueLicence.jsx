@@ -19,6 +19,8 @@ export default function IssueLicence() {
   const [licenseExpiryDate, setLicenseExpiryDate] = useState(
     user?.licenseExpiryDate
   );
+  let totalTime = 0;
+  let nightHours = 0;
 
   useEffect(() => {
     var myHeaders = new Headers();
@@ -99,9 +101,21 @@ export default function IssueLicence() {
           <label>Licence No: {user._id} </label>
         </div>
         <div>
-          {user.logbookHours.map(u => 
-            <label>Driving Hours: {u.travelTime}</label>
-            )}
+          {user.logbookHours.map(u => {
+            if (u.instructor) {
+              totalTime += u.travelTime * 3;
+            } else totalTime += u.travelTime;
+            if(u.nightHours){
+              nightHours += u.travelTime
+            }
+            return(
+            <></>
+            );
+          })}
+          <label>Total Driving Hours: {totalTime}</label>
+        </div>
+        <div>
+        <label>Total Night Hours: {nightHours}</label>
         </div>
         <div>
           <label>Licence Type: </label>

@@ -175,11 +175,19 @@ a {
 }
 .victorypie{
   float: right;
-  margin-top: -320px;
-  margin-right: 100px;
+    margin: -465px;
+    margin-right: 0px;
+    margin-left: 0px;
+    height: 600px;
 }
-.totalhours{
-  margin-left: 600px;
+.victorypie-admin{
+  margin: -460px;
+  margin-right: 0;
+  margin-left: 0px;
+  height: 775px;
+  float: right;
+
 }
+
 
 

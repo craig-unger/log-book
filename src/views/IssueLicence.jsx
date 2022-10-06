@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { TokenContext } from "../App";
+import { VictoryPie } from "victory-pie";
 
 export default function IssueLicence() {
   const [token, setToken] = useContext(TokenContext);
@@ -33,8 +34,7 @@ export default function IssueLicence() {
 
     fetch(`http://localhost:8080/admin/${id}`, requestOptions)
       .then((response) => response.json())
-      .then((result) => 
-        setUser(result))
+      .then((result) => setUser(result))
       .catch((error) => console.log("error", error));
   }, []);
 
@@ -82,7 +82,7 @@ export default function IssueLicence() {
           <h2>Customer Details</h2>
         </div>
         <div className="label-div">
-        <label>Customer ID: {user?._id}</label>
+          <label>Customer ID: {user?._id}</label>
         </div>
         <div className="label-div">
           <label>Username: {user?.username} </label>
@@ -102,36 +102,64 @@ export default function IssueLicence() {
         <div className="label-div">
           <label>Licence No: {user._id} </label>
         </div>
-        <div className="label-div">
-          {user.logbookHours.map(u => {
+        <div className="total">
+          {user.logbookHours.map((u) => {
             if (u.instructor) {
               totalTime += u.travelTime * 3;
             } else totalTime += u.travelTime;
-            if(u.nightHours){
-              nightHours += u.travelTime
+            if (u.nightHours) {
+              nightHours += u.travelTime;
             }
-            return(
-            <div key={u._id}></div>
-            );
+            return <div key={u._id}></div>;
           })}
-          <label>Total Driving Hours: {totalTime}</label>
-        </div>
-        <div className="label-div">
-        <label>Total Night Hours: {nightHours}</label>
+          <div className="label-div">
+            <label>Total Driving Hours: {totalTime}</label>
+          </div>
+
+          <div className="label-div">
+            <label>Total Night Hours: {nightHours}</label>
+          </div>
+          <br />
+          <div className="victorypie-admin">
+            <VictoryPie
+              data={[
+                { x: `Hours Complete: ${totalTime}`, y: totalTime },
+                {
+                  x:
+                    totalTime >= 120 && nightHours >= 20
+                      ? "Provisional Licence can be issued"
+                      : `Hours Remaining: ${120 - totalTime}`,
+                  y: 120 - totalTime,
+                },
+              ]}
+              colorScale={["Green", "red"]}
+              radius={50}
+            />
+          </div>
         </div>
         <div>
           <label>Licence Type: </label>
         </div>
         <div>
-          <select
-            value={licenseType}
-            onChange={(e) => setLicenseType(e.target.value)}
-          >
-            <option value="">- Please select category -</option>
-            <option value="Learner">Learner</option>
-            <option value="Provisional 1">Provisional 1</option>
-            <option value="Provisional 2">Provisional 2</option>
-          </select>
+          {totalTime <= 120 && nightHours <= 20 ? (
+            <select
+              value={licenseType}
+              onChange={(e) => setLicenseType(e.target.value)}
+            >
+              <option value="">- Please select category -</option>
+              <option value="Learner">Learner</option>
+            </select>
+          ) : (
+            <select
+              value={licenseType}
+              onChange={(e) => setLicenseType(e.target.value)}
+            >
+              <option value="">- Please select category -</option>
+              <option value="Learner">Learner</option>
+              <option value="Provisional 1">Provisional 1</option>
+              <option value="Provisional 2">Provisional 2</option>
+            </select>
+          )}
         </div>
         <div>
           <label>Licence Issue Date: </label>

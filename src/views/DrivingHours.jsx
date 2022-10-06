@@ -10,11 +10,7 @@ export default function DrivingHours() {
   const [user, setUser] = useState();
   let totalTime = 120;
   let nightHours = 20;
-  const myData = [
-    { x: "Total Hours", y: totalTime },
-    { x: "Hours Remaining", y: 120 - totalTime },
-    // { x: "Group C", y: 300 },
-  ];
+  
 
   useEffect(() => {
     let config = {
@@ -99,8 +95,10 @@ export default function DrivingHours() {
         <VictoryPie
         data={[
           { x: `Hours Complete: ${120 - totalTime}`, y: 120 - totalTime },
-          { x: `Hours Remaining: ${totalTime}`, y: totalTime},
-          // { x: "Group C", y: 300 },
+          { x:  totalTime >= 1 || nightHours >1
+            ? `Hours Remaining: ${totalTime}`
+            : "Congratulations, you have completed all driving hours!",
+           y: totalTime},
         ]}
         colorScale={["Green", "red",]}
         radius={50}
@@ -112,15 +110,15 @@ export default function DrivingHours() {
       
     </div>
     <div >
-      <h2 className="totalhours">
+      <h2>
         {totalTime >= 1
           ? `Total Learning Hours Remaining: ${totalTime}`
-          : "Congratulations you have completed all 120 driving hours"}
+          : "Congratulations, you have completed all 120 driving hours!"}
       </h2>
       <h3>
         {nightHours >= 1
           ? `Night Hours Remaining: ${nightHours}`
-          : "Congratulations you have completed 20 night hours"}
+          : "Congratulations, you have completed 20 night hours!"}
       </h3>
       </div>
     </>

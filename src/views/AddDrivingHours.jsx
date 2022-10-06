@@ -15,7 +15,7 @@ export default function AddDrivingHours() {
 
   useEffect(() => {
     calculateTravelTime();
-  },[endTime,startTime]);
+  }, [endTime, startTime]);
 
   useEffect(() => {
     let config = {
@@ -50,16 +50,14 @@ export default function AddDrivingHours() {
     navigate(-1);
   }
 
-  function calculateTravelTime(){
-    let endTimes = endTime.split(":")
-    let startTimes = startTime.split(":")
-    let total = endTimes[0] - startTimes[0]
+  function calculateTravelTime() {
+    let endTimes = endTime.split(":");
+    let startTimes = startTime.split(":");
+    let total = endTimes[0] - startTimes[0];
     if (startTimes[1] > endTimes[1]) {
-      total -= 1
+      total -= 1;
     }
-    console.log(endTimes,startTimes)
-    setTravelTime(total)
-
+    setTravelTime(total);
   }
 
   if (!user) {
@@ -86,9 +84,9 @@ export default function AddDrivingHours() {
           required={true}
           type="time"
           value={startTime}
-          onChange={(e) => { 
-            setStartTime(e.target.value)
-            calculateTravelTime()
+          onChange={(e) => {
+            setStartTime(e.target.value);
+            calculateTravelTime();
           }}
         />
       </div>
@@ -100,8 +98,8 @@ export default function AddDrivingHours() {
           type="time"
           value={endTime}
           onChange={(e) => {
-            setEndTime(e.target.value)
-            calculateTravelTime()
+            setEndTime(e.target.value);
+            calculateTravelTime();
           }}
         />
       </div>
@@ -118,26 +116,25 @@ export default function AddDrivingHours() {
       </div>
 
       <div>
-      <div className="Div-checkbox">
+        <div className="Div-checkbox">
+          <label>Driving Instructor</label>
+          <input
+            type="checkbox"
+            checked={instructor}
+            onChange={() => setInstructor(!instructor)}
+          />
+          <br />
+          <label>Night Hours</label>
+          <input
+            type="checkbox"
+            checked={nightHours}
+            onChange={() => setNightHours(!nightHours)}
+          />
+        </div>
+        <br />
 
-     <label>Driving Instructor</label>
-      <input
-        type="checkbox"
-        checked={instructor}
-        onChange={() => setInstructor(!instructor)}
-      />
-      <br/>
-      <label>Night Hours</label>
-      <input
-        type="checkbox"
-        checked={nightHours}
-        onChange={() => setNightHours(!nightHours)}
-      />
-      </div>
-      <br/>
-
-      <button onClick={addTrip}>Add</button>
-      <button onClick={() => navigate(-1)}>Cancel</button>
+        <button onClick={addTrip}>Add</button>
+        <button onClick={() => navigate(-1)}>Cancel</button>
       </div>
     </div>
   );

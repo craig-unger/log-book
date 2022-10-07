@@ -10,7 +10,6 @@ export default function DrivingHours() {
   const [user, setUser] = useState();
   let totalTime = 120;
   let nightHours = 20;
-  
 
   useEffect(() => {
     let config = {
@@ -37,89 +36,115 @@ export default function DrivingHours() {
 
   return (
     <>
-    <div className="Div-border">
-      <div>
-      <h2>Driving Hours</h2>
-      <h3>
-        {user.firstName} {user.lastName}
-      </h3>
-      <div className="button-div">
-        <button onClick={() => navigate("/user/drivinghours/newentry")}>
-          Add Entry
-        </button>
-        <button onClick={() => navigate("/user/license")}>
-          Back to Licence details
-        </button>
-      </div>
-
-      <div>
-        <div className="Div-hour-table">
-
-          <table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-                <th>Instructor Trip</th>
-                <th>Night Hours</th>
-                <th>Travel Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              {user.logbookHours.map((le) => {
-                if (le.instructor) {
-                  totalTime -= le.travelTime * 3;
-                } else totalTime -= le.travelTime;
-                if (le.nightHours) {
-                  nightHours -= le.travelTime;
-                }
-                return (
-                  <tr key={le._id}>
-                    <td>{formatDate(le.date)}</td>
-                    <td>{le.startTime}</td>
-                    <td>{le.endTime}</td>
-                    <td>{le.instructor ? "Yes" : "No"}</td>
-                    <td>{le.nightHours ? "Yes" : "No"}</td>
-                    <td>
-                      {le.travelTime && le.instructor
-                        ? le.travelTime * 3
-                        : le.travelTime}
-                    </td>
+      <div className="Div-border">
+        <div>
+          <h2>Driving Hours</h2>
+          <h3>
+            {user.firstName} {user.lastName}
+          </h3>
+          <div className="button-div">
+            <button onClick={() => navigate("/user/drivinghours/newentry")}>
+              Add Entry
+            </button>
+            <button onClick={() => navigate("/user/license")}>
+              Back to Licence details
+            </button>
+          </div>
+          <div>
+            <div className="Div-hour-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Instructor Trip</th>
+                    <th>Night Hours</th>
+                    <th>Travel Time</th>
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
-         <div className="victorypie">
-        <VictoryPie
-        data={[
-          { x: `Hours Complete: ${120 - totalTime}`, y: 120 - totalTime },
-          { x:  totalTime >= 1 || nightHours >1
-            ? `Hours Remaining: ${totalTime}`
-            : "Congratulations, you have completed all driving hours!",
-           y: totalTime},
-        ]}
-        colorScale={["Green", "red",]}
-        radius={50}
-      />
-      </div> 
+                </thead>
+                <tbody>
+                  {user.logbookHours.map((le) => {
+                    if (le.instructor) {
+                      totalTime -= le.travelTime * 3;
+                    } else totalTime -= le.travelTime;
+                    if (le.nightHours) {
+                      nightHours -= le.travelTime;
+                    }
+                    return (
+                      <tr key={le._id}>
+                        <td>{formatDate(le.date)}</td>
+                        <td>{le.startTime}</td>
+                        <td>{le.endTime}</td>
+                        <td>{le.instructor ? "Yes" : "No"}</td>
+                        <td>{le.nightHours ? "Yes" : "No"}</td>
+                        <td>
+                          {le.travelTime && le.instructor
+                            ? le.travelTime * 3
+                            : le.travelTime}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              <div className="victorypie-right">
+                <VictoryPie
+                  data={[
+                    {
+                      x: `Total Hours Complete:
+                      ${120 - totalTime}`,
+                      y: 120 - totalTime,
+                    },
+                    {
+                      x:
+                        totalTime >= 1 || nightHours > 0
+                          ? `Total Hours Remaining:
+                          ${totalTime}`
+                          : "Congratulations, you have completed all driving hours!",
+                      y: totalTime,
+                    },
+                  ]}
+                  colorScale={["Green", "red", "blue"]}
+                  radius={50}
+                />
+              </div>
+              <div className="victorypie-left">
+                <VictoryPie
+                  data={[
+                    {
+                      x: `Night Hours:
+                      ${20 - nightHours}`,
+                      y: 20 - nightHours,
+                    },
+                    {
+                      x:
+                          nightHours > 1
+                          ? `Hours Remaining:
+                          ${nightHours}`
+                          : "Congratulations, you have completed all Night hours!",
+                      y: nightHours,
+                    },
+                  ]}
+                  colorScale={["blue", "red"]}
+                  radius={50}
+                />
+              </div>
+              <div>
+                <h2>
+                  {totalTime >= 1 || nightHours > 0
+                    ? `Total Learning Hours Remaining: ${totalTime}`
+                    : "Congratulations, you have completed all 120 driving hours!"}
+                </h2>
+                <h3>
+                  {nightHours >= 1
+                    ? `Night Hours Remaining: ${nightHours}`
+                    : "Congratulations, you have completed 20 night hours!"}
+                </h3>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      </div>
-      
-    </div>
-    <div >
-      <h2>
-        {totalTime >= 1
-          ? `Total Learning Hours Remaining: ${totalTime}`
-          : "Congratulations, you have completed all 120 driving hours!"}
-      </h2>
-      <h3>
-        {nightHours >= 1
-          ? `Night Hours Remaining: ${nightHours}`
-          : "Congratulations, you have completed 20 night hours!"}
-      </h3>
       </div>
     </>
   );

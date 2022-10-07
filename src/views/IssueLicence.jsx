@@ -102,6 +102,9 @@ export default function IssueLicence() {
         <div className="label-div">
           <label>Licence No: {user._id} </label>
         </div>
+        <div className="label-div">
+          <label>Current Licence Type: {user?.licenseType} </label>
+        </div>
         <div className="total">
           {user.logbookHours.map((u) => {
             if (u.instructor) {
@@ -120,28 +123,51 @@ export default function IssueLicence() {
             <label>Total Night Hours: {nightHours}</label>
           </div>
           <br />
-          <div className="victorypie-admin">
+          <div className="victorypie-admin-left">
             <VictoryPie
               data={[
-                { x: `Hours Complete: ${totalTime}`, y: totalTime },
+                { x: `Night Hours:
+                ${nightHours}`, 
+                y: nightHours },
+                {
+                  x:
+                    nightHours >= 20
+                      ? "Night hours complete"
+                      : `Hours Remaining:
+                      ${20 - nightHours}`,
+                  y: 20 - nightHours,
+                },
+              ]}
+              colorScale={["blue", "red"]}
+              radius={50}
+            />
+            </div>
+            <div  className="victorypie-admin-right">
+            <VictoryPie
+           
+              data={[
+                { x: `Hours Complete:
+                ${totalTime}`, y: totalTime },
                 {
                   x:
                     totalTime >= 120 && nightHours >= 20
                       ? "Provisional Licence can be issued"
-                      : `Hours Remaining: ${120 - totalTime}`,
+                      : `Hours Remaining:
+                      ${120 - totalTime}`,
                   y: 120 - totalTime,
                 },
               ]}
               colorScale={["Green", "red"]}
               radius={50}
             />
-          </div>
+            </div>
+          
         </div>
         <div>
           <label>Licence Type: </label>
         </div>
         <div>
-          {totalTime <= 120 && nightHours <= 20 ? (
+          {totalTime < 120 || nightHours < 20 ? (
             <select
               value={licenseType}
               onChange={(e) => setLicenseType(e.target.value)}
